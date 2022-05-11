@@ -27,6 +27,9 @@ $ source venv/bin/activate
 (venv) $ pip install -Ur requirements.txt
 ```
 
+You also need to create a file called `tokenfile` in the root of the project, containing a github Personal Access Token on first line.
+Any further lines are simply not even read, if present. The PAT requires no special scopes.
+
 To get the labels to apply to a PR:
 
 ```
