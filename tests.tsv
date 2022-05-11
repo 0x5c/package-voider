@@ -1,7 +1,11 @@
-https://github.com/void-linux/void-packages/pull/35961	ok	videolan-site
-https://github.com/void-linux/void-packages/pull/36273		ircdog
-https://github.com/void-linux/void-packages/pull/36282	ok	helvum-cleanum
-https://github.com/void-linux/void-packages/pull/36238	ok	plugdev
-https://github.com/void-linux/void-packages/pull/35591		helvum-new
-https://github.com/void-linux/void-packages/pull/36144	ok	libsigrok
-https://github.com/void-linux/void-packages/pull/36376	ok	iosevka-update
+Pull Request URL	Test Case Name	Mismatch Expected	Label List
+https://github.com/void-linux/void-packages/pull/35961	videolan-site	False	documentation xbps-src cleanup-fixup
+https://github.com/void-linux/void-packages/pull/36273	ircdog	False	new-package
+https://github.com/void-linux/void-packages/pull/36282	helvum-cleanup	False	revbump cleanup-fixup
+https://github.com/void-linux/void-packages/pull/36238	plugdev	False	revbump cleanup-fixup
+https://github.com/void-linux/void-packages/pull/35591	helvum-new	False	xbps-src new-package
+https://github.com/void-linux/void-packages/pull/36144	libsigrok	False	revbump cleanup-fixup
+https://github.com/void-linux/void-packages/pull/36376	iosevka-update	False	update trivial
+https://github.com/void-linux/void-packages/pull/36432	emacs-gtk2	False	deletion cleanup-fixup
+https://github.com/void-linux/void-packages/pull/36008	kcat	False	renamed
+https://github.com/void-linux/void-packages/pull/35897	gmime_edgecase-fail	True	shlibs deletion renamed cleanup-fixup
