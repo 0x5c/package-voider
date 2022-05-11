@@ -75,7 +75,7 @@ def tests(filename: Path = typer.Argument(Path("./tests.tsv"))):
     """Runs the tests."""
     repo = login()
     tests = parse_tests(filename)
-    with Progress() as progress:
+    with Progress(transient=True) as progress:
         task = progress.add_task("[cyan]Running tests...", total=len(tests))
         for test in tests:
             pr = repo.get_pull(test.pr_number)
@@ -86,7 +86,12 @@ def tests(filename: Path = typer.Argument(Path("./tests.tsv"))):
 @cli.command()
 def labels(pr_number: int):
     """Print automatic labels for a PR."""
-    print(pr_number)
+    repo = login()
+    pr = repo.get_pull(pr_number)
+    raw_labels = package_sieve(*file_sieve(list(pr.get_files())))
+    labels = [l.value for l in raw_labels]
+    rprint(f"[cyan]Labels for PR [magenta]{pr_number}[/]:")
+    rprint(labels)
 
 
 if __name__ == "__main__":

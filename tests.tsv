@@ -9,3 +9,6 @@ https://github.com/void-linux/void-packages/pull/36376	iosevka-update	False	upda
 https://github.com/void-linux/void-packages/pull/36432	emacs-gtk2	False	deletion cleanup-fixup
 https://github.com/void-linux/void-packages/pull/36008	kcat	False	renamed
 https://github.com/void-linux/void-packages/pull/35897	gmime_edgecase-fail	True	shlibs deletion renamed cleanup-fixup
+https://github.com/void-linux/void-packages/pull/37045	hamlib-revdeps-update	False	shlibs rebvump update
+https://github.com/void-linux/void-packages/pull/37078	glfw-wayland	False	new-package
+https://github.com/void-linux/void-packages/pull/37081	linux-firmware-update	False	trivial update

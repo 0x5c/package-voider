@@ -14,7 +14,7 @@ def patch_changes(patch: str):
 
 
 def file_sieve(files: list[File.File]) -> tuple[list[Label], dict[str, list[Label]]]:
-    """Takes a list of File objects and figures out what tags apply."""
+    """Takes a list of PR File objects and figures out what labels apply."""
     labels: list[Label] = []
     packages: dict[str, list[Label]] = defaultdict(lambda: list())
     for file in files:
@@ -69,6 +69,7 @@ def file_sieve(files: list[File.File]) -> tuple[list[Label], dict[str, list[Labe
 
 
 def  package_sieve(labels: list[Label], packages: dict[str, list[Label]]) -> list[Label]:
+    """From the per-package labels, this finishes building the PR's list of labels."""
     for pkg, l in packages.items():
         if Label.DELETE in l and Label.NEWLINK in l:
             # If the package is a new link and has a deleted template,
@@ -76,9 +77,14 @@ def  package_sieve(labels: list[Label], packages: dict[str, list[Label]]) -> lis
             labels += [Label.RENAMED]
             continue
         if Label.NEW in l and Label.NEWTARGET in l:
-            # If the package both has a new template or is the target
+            # If the package both has a new template and is the target
             # of a new symlink, it is the result of a rename operation
             labels += [Label.RENAMED]
+            continue
+        if Label.NEWTARGET in l:
+            # If the package got a new symlink targetting it, but isn't itself new,
+            # it must (am I sure?) have gained a new subpackage.
+            labels += [Label.NEW]
             continue
         if Label.DELETE in l:
             # The package is GONE, TURNED TO ETERNAL DUST
@@ -96,11 +102,11 @@ def  package_sieve(labels: list[Label], packages: dict[str, list[Label]]) -> lis
             continue
         # We only have revbump and/or cleanup-fixups
         labels += l
-    deduped = list(set(labels))
-    if deduped == [Label.UPDATE]:
+    cleaned_and_deduped = list(set(labels).difference(INTERNAL_LABELS))
+    if cleaned_and_deduped == [Label.UPDATE]:
         # <ahesford> it would be nice to have an automatic label added if the only change is version, revision and checksum
         # <Piraty> [SIMPLE]
         # <ahesford> [DECEPTIVELY SIMPLE]
         # <Piraty> [TRIVIAL]
-        deduped += [Label.TRIVIAL]
-    return deduped
+        cleaned_and_deduped += [Label.TRIVIAL]
+    return cleaned_and_deduped
